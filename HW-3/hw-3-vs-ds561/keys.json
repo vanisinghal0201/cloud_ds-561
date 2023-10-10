@@ -1,0 +1,14 @@
+{
+    "type": "service_account",
+    "project_id": "ds-561-vanisinghal",
+    "private_key_id": "aa18c6c25b69420c04e7912beb29610fa0896019",
+    "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDWM7MKV0VfSeW/\nR0ItJJ2A0YEP0PrvNoVhusHbIcHnmPgPFusL/gOOTfW+HkA9690vOIgk2LaeigSh\nva8S8+ZhTwIfHW9GFHZ93YTQi4kBBAZ1E3Tb80wfvtu977o/PRDS/id80rb/rh4x\n6/NKSqewEf27/wHhn7NFTduzDfgXUQYEIdO8xTJYi4KwB1feGkVazJBY+XcNxXlr\nPQhKDj7Q+rPPO6eNvmOcLr3L7S7lZGFEIB6n6f/iRhw+AMkIt6IcLR15wLYWWPJ1\nE0Wn8NL1a7QnY2pY+jM3L4rZ4QjW8TFKSVHE5uvpbIg8QV2oqp6fxlTL2DGt41+W\nn1NWolAVAgMBAAECggEABM5Nvg9AzZqC2EycMRcZN/Xhx2qqg3BEHdhq13Flpr4v\n32bMPA1yI8c4zdzJfc1eiqiu2H5kQO2ONqX8csucgTwC+CyMF2GhWif8l6rWlnpy\nPdfQT2VuCwHlPD9P4z6J5uUwGms/39l9ClgY5U0ETIo0ZZUBhDM14OAv7ByFuUAo\n0JtwJXDgnTCJcRXSHo410/8xAcZMhp8KXsx8/0sSVwe42Z/PtAU7v3zexW2gG0eL\nUnMLfQb3PDZ+oaMg3B1c1uRIQ3+yUyiTpsdvTLHpbCyvzYM3HNaTI7NyHOom8yxJ\noUbBDj+ex+fJ6LwoMeG1Q/U/mgRd6I5hu9wjU/VVAQKBgQDxuu5JdFoLPFzKwBz9\nrdgucF2/jwK7XiQlAs4oxGo6i5X6SaTlGkweNigabQIkvgU2ndXogs7eyc1DQS3Y\ne7xf7EVcY4tTlk/XEo5ERefpAhVoPyiRg12FfwfZaA+xaAifrQRY51H2HH5RC3qf\nnntb2E2bGKyf9g8odIXhjEkWjQKBgQDi2MHBSRN3HadL2cI9A1oeVM5T0v+qHZlb\neDs8LreCps9vd9L6Db8x6a3NCKI05SJnliOSVkNWBsK6mef0TcdHkyg/3w9SZ0uc\nwCMBxziY8XARTe/xngX6w4s+DnaxUV/LJNzwwH5bR79hKZeA0ZVdF4nvCI4xl5q2\nC+gAZfNhqQKBgG5WHtIUc81RHiHFkvYP1e9Mht4bDuorTGBAaY2eKcbTU//MgaG5\nYSkhGykEvMe8nHCTlsHsgzSZ9EFQjPaVdCRsmjRTk5Lxtzu6UonDRtnKg67ztTbG\nOXfnxdNsdk1J6TXJKYTTAUxPMTEZBj25fyErGDFFD/Zrv/t9RGbxO6M5AoGAdaQZ\nXyaJjLV5JBHq9H8/hglO8xOyeMNe25vPhFdp3byqSNFoPTtR0w2vj2wRysKlg/jN\nu782rm9VHzZfn0eSuCCtt+ny5TYidUkDHpH1XQOgraiwbaoYycIM/QK9NRnRRuV4\nGvaI0Me1jSrnoeuOvTdO1gKm0zsfBZfJGiPFAvkCgYEAnt3BfKD9h40Z93/VWZYo\n84SlizAF0jUOccJb2tdLni6h+rTzpPCucq0wHyJlGY3KdsHt0PQdm/y+awivsNgf\nfL4aBvjzbGWR/uxozqq8OzxTPwprFwLDzcWDcYxR2Q27qOfXgCllit/pMNCvLvSt\nTF11xvGdzlr3mZqRjGcV2RM=\n-----END PRIVATE KEY-----\n",
+    "client_email": "ds-561-hw2-vs@ds-561-vanisinghal.iam.gserviceaccount.com",
+    "client_id": "111888192850418895976",
+    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": "https://oauth2.googleapis.com/token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+    "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/ds-561-hw2-vs%40ds-561-vanisinghal.iam.gserviceaccount.com",
+    "universe_domain": "googleapis.com"
+  }
+  
