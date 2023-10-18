@@ -24,4 +24,4 @@ if [ -d "$HW4_DIR/env" ]; then
 fi
 
 # Start the country logger app in the background
-$HW4_DIR/env/bin/python3 $HW4_DIR/logger.py > $HW4_DIR/banned-data-logs.log 2>&1 &
+$HW4_DIR/env/bin/python3 $HW4_DIR/logger-app-2.py &
