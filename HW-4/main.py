@@ -35,8 +35,9 @@ def publish_banned_request(country, filename, request):
 
     # Publish the request data to Pub/Sub
     publisher.publish(topic_path, data=json.dumps(data).encode("utf-8"))
-
-@app.route('/<path:filename>', methods=['GET'])
+    
+HTTP_METHODS = ['GET','POST','PUT', 'DELETE', 'HEAD', 'CONNECT', 'OPTIONS', 'TRACE', 'PATCH']
+@app.route('/<path:filename>', methods=HTTP_METHODS)
 def serve_file(filename):
 
     # Check the client's country
