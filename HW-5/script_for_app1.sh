@@ -13,9 +13,10 @@ if [ ! -d "$REPO_DIR" ]; then
 fi
 
 # Clone the source code repository if it doesn't exist
-if [ -d "$REPO_DIR" ]; then
-    git pull $REPO_DIR
-fi
+#if [ -d "$REPO_DIR" ]; then
+    #cd $REPO_DIR
+    #git pull https://github.com/vanisinghal0201/cloud_ds-561.git
+#fi
 
 # Create a Python virtual environment 
 if [ ! -d "$HW5_DIR/env" ]; then
@@ -24,7 +25,7 @@ if [ ! -d "$HW5_DIR/env" ]; then
     $HW5_DIR/env/bin/pip install -r $HW5_DIR/requirements.txt
 fi
 
-# Change the working directory to HW-4
+# Change the working directory to HW-5
 cd $HW5_DIR
 
 # Configure Nginx for the Flask app
