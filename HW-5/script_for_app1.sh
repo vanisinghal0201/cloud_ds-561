@@ -4,7 +4,7 @@ apt-get install -yq git python3-pip python3-venv nginx
 pip3 install --upgrade pip
 
 # Set the directory paths for the repository and HW-4
-REPO_DIR="/opt/app"
+REPO_DIR="/opt/app1"
 HW5_DIR="$REPO_DIR/HW-5"
 
 # Clone the source code repository if it doesn't exist
