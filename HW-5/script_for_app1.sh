@@ -12,6 +12,11 @@ if [ ! -d "$REPO_DIR" ]; then
     git clone https://github.com/vanisinghal0201/cloud_ds-561.git $REPO_DIR
 fi
 
+# Clone the source code repository if it doesn't exist
+if [ -d "$REPO_DIR" ]; then
+    git pull $REPO_DIR
+fi
+
 # Create a Python virtual environment 
 if [ ! -d "$HW5_DIR/env" ]; then
     python3 -m venv $HW5_DIR/env

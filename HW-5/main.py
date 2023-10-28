@@ -23,7 +23,7 @@ BANNED_COUNTRIES = ['North Korea', 'Iran', 'Cuba', 'Myanmar', 'Iraq', 'Libya', '
 db_connection = mysql.connector.connect(
     host='34.132.68.140',
     user='966904513519-compute',
-    password='',
+    password='1234',
     database='hw5'
 )
 
