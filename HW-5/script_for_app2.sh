@@ -3,7 +3,7 @@ apt-get update
 apt-get install -yq git python3-pip python3-venv
 
 # Set the directory paths for the repository and HW-4
-REPO_DIR="/opt/app1"
+REPO_DIR="/opt/app2"
 HW5_DIR="$REPO_DIR/HW-5"
 
 # Clone the source code repository if it doesn't exist
