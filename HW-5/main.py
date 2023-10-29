@@ -154,7 +154,7 @@ def insert_request(db,country, client_ip, gender, age, income, is_banned, time_o
         # back into the pool at the end of statement (even if an error occurs)
         with db.connect() as conn:
             res = conn.execute(stmt_user, parameters={"client_ip": client_ip, "gender": gender, "age":age, "income": income, "is_banned":is_banned})
-            conn.execute(stmt_request, parameters={"user_id": res.lastrowid, "country":country, "time": time_cast, "requested_file":requested_file})
+            conn.execute(stmt_request, parameters={"user_id": res.lastrowid, "country":country, "time": time_of_day, "requested_file":requested_file})
             conn.commit()
     except Exception as e:
         # If something goes wrong, handle the error in this section. This might
