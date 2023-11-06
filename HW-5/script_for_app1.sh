@@ -31,7 +31,7 @@ cd $HW5_DIR
 # Configure Nginx for the Flask app
 NGINX_CONF="/etc/nginx/sites-available/flask_app"
 if [ ! -f "$NGINX_CONF" ]; then
-    cat > $NGINX_CONF <<EOL
+    cat > /etc/nginx/sites-available/flask_ap <<EOL
 server {
     listen 80;
     server_name _;
@@ -46,7 +46,7 @@ server {
 EOL
 
     # Enable the Nginx configuration by creating a symlink
-    ln -s $NGINX_CONF /etc/nginx/sites-enabled/
+    ln -s /etc/nginx/sites-available/flask_app /etc/nginx/sites-enabled/
 fi
 
 # Remove the default Nginx configuration if it exists

@@ -32,7 +32,7 @@ project_id = "ds-561-vanisinghal"
 # ID of the secret to create.
 secret_ids = ["db_user","db_pass","db_name","sql_INSTANCE_CONNECTION_NAME","pub_ip"]
 
-creds = {}
+#creds = {}
 
 def access_secret_version(secret_id, version_id="latest"):
     # Create the Secret Manager client.
@@ -47,9 +47,9 @@ def access_secret_version(secret_id, version_id="latest"):
     # Return the decoded payload.
     return response.payload.data.decode('UTF-8')
 
-for secret_id in secret_ids:
+#for secret_id in secret_ids:
     # Access the secret version.
-    creds[secret_id] = access_secret_version(secret_id=secret_id)
+    #creds[secret_id] = access_secret_version(secret_id=secret_id)
     
 def connect_with_connector() -> sqlalchemy.engine.base.Engine:
     """
@@ -62,12 +62,12 @@ def connect_with_connector() -> sqlalchemy.engine.base.Engine:
     # Cloud Secret Manager (https://cloud.google.com/secret-manager) to help
     # keep secrets safe.
 
-    global creds
+    #global creds
 
-    instance_connection_name = creds["sql_INSTANCE_CONNECTION_NAME"]  # e.g. 'project:region:instance'
-    db_user = creds["db_user"]  # e.g. 'my-db-user'
-    db_pass = creds["db_pass"]  # e.g. 'my-db-password'
-    db_name = creds["db_name"]  # e.g. 'my-database'
+    instance_connection_name = "ds-561-vanisinghal:us-central1:hw-5-database"  # e.g. 'project:region:instance'
+    db_user = "root"  # e.g. 'my-db-user'
+    db_pass = "1234"  # e.g. 'my-db-password'
+    db_name = "hw5"  # e.g. 'my-database'
 
     ip_type = IPTypes.PUBLIC
 
