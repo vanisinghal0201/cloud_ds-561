@@ -5,6 +5,8 @@ from google.cloud.sql.connector import Connector, IPTypes
 import pymysql
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.svm import SVC 
 from sklearn.metrics import accuracy_score, classification_report
 from sklearn.preprocessing import LabelEncoder
 import ipaddress
@@ -98,8 +100,17 @@ def preprocess_data(df):
     return X_train, X_test, y_train, y_test,le
 
 # Build and train the machine learning model
-def build_and_train_model(X_train, y_train):
+def build_and_train_model1(X_train, y_train):
     model = RandomForestClassifier(n_estimators=100, random_state=42)
+    model.fit(X_train, y_train)
+    return model
+
+def build_and_train_model2(X_train, y_train):
+    model = DecisionTreeClassifier(random_state=42)
+    model.fit(X_train, y_train)
+    return model
+def build_and_train_model3(X_train, y_train):
+    model = SVC(kernel='linear')
     model.fit(X_train, y_train)
     return model
 
@@ -122,12 +133,21 @@ data = fetch_data()
 X_train, X_test, y_train, y_test,le = preprocess_data(data)
 
 # Build and train the model
-model = build_and_train_model(X_train, y_train)
+model1 = build_and_train_model1(X_train, y_train)
+model2 = build_and_train_model2(X_train, y_train)
+model3 = build_and_train_model3(X_train, y_train)
 
 # Evaluate the model
-accuracy, report = evaluate_model(model, X_test, y_test,le)
+accuracy, report = evaluate_model(model1, X_test, y_test,le)
 
-print(f"Accuracy: {accuracy * 100:.2f}%")
-print("Classification Report:")
-print(report)
+print(f"Accuracy1_RandomForest: {accuracy * 100:.2f}%")
+
+
+accuracy, report = evaluate_model(model2, X_test, y_test,le)
+
+print(f"Accuracy2_decisionTree: {accuracy * 100:.2f}%")
+
+accuracy, report = evaluate_model(model3, X_test, y_test,le)
+
+print(f"Accuracy3_SVM: {accuracy * 100:.2f}%")
 
