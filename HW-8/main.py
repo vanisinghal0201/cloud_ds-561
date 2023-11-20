@@ -1,8 +1,13 @@
-from flask import Flask, Response, abort, request
-import functions_framework
-from google.cloud import storage, logging as gcloud_logging
+from flask import Flask, Response, abort, request, make_response
+from google.cloud import storage
+from google.cloud import logging as gcloud_logging
+from flask_cors import cross_origin
 from google.cloud import pubsub_v1
 import json
+
+from google.cloud.sql.connector import Connector, IPTypes
+
+import requests
 
 app = Flask(__name__)
 
