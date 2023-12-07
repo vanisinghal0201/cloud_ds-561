@@ -17,7 +17,7 @@ app = Flask(__name__)
 storage_client = storage.Client.create_anonymous_client()
 
 # Define the Google Cloud Storage bucket name
-bucket_name = 'hw-2-bucket-ds561'
+bucket_name = 'ds-561-gcs-bucket'
 
 # Set up Google Cloud Logging
 logging_client = gcloud_logging.Client()
@@ -50,7 +50,7 @@ def connect_with_connector() -> sqlalchemy.engine.base.Engine:
 
     #global creds
 
-    instance_connection_name = "ds-561-vanisinghal:us-central1:hw-5-database"  # e.g. 'project:region:instance'
+    instance_connection_name = "ds-561-vanisinghal:us-central1:my-cloud-sql-instance"  # e.g. 'project:region:instance'
     db_user = "root"  # e.g. 'my-db-user'
     db_pass = "1234"  # e.g. 'my-db-password'
     db_name = "hw5"  # e.g. 'my-database'
@@ -65,8 +65,9 @@ def connect_with_connector() -> sqlalchemy.engine.base.Engine:
             "pymysql",
             user=db_user,
             password=db_pass,
-            db=db_name,
         )
+        conn.cursor().execute('create database '+ db_name)
+        conn.select_db(db_name)
         return conn
 
     pool = sqlalchemy.create_engine(

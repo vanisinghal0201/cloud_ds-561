@@ -3,7 +3,7 @@ resources:
   type: compute.v1.instance
   properties:
     zone: us-central1-a
-    machineType: zones/us-central1-a/machineTypes/n1-standard-1
+    machineType: zones/us-central1-a/machineTypes/e2-micro-1
     disks:
     - deviceName: boot
       type: PERSISTENT
@@ -19,10 +19,14 @@ resources:
     metadata:
       dependsOn:
       - my-service-account
-      - my-gcs-bucket
-      - my-cloudsql-database
+      - ds-561-gcs-bucket
+      - my-cloud-sql-instance
       - my-pubsub-topic
       items:
+      - key: files-bucket
+        value: $(ref.ds-561-gcs-bucket.name)
+      - key: service-account-email
+        value: $(ref.my-service-account.email)
       - key: startup-script
         value: |
           #!/bin/bash
@@ -32,7 +36,7 @@ resources:
 
           # Set the directory paths for the repository and HW-4
           REPO_DIR="/opt/app2"
-          HW5_DIR="$REPO_DIR/HW-5"
+          HW5_DIR="$REPO_DIR/HW-10"
 
           # Clone the source code repository if it doesn't exist
           if [ ! -d "$REPO_DIR" ]; then
@@ -48,6 +52,13 @@ resources:
 
           # Change the working directory to HW-5
           cd $HW5_DIR
+
+          python3 generate.py -n 10000 -m 250
+
+          gsutil mkdir gs://ds-561-gcs-bucket/files 
+
+          # Upload generated files to GCS bucket
+          gsutil cp *.html gs://ds-561-gcs-bucket/files 
 
           # Configure Nginx for the Flask app
           NGINX_CONF="/etc/nginx/sites-available/flask_app"
@@ -81,5 +92,8 @@ resources:
           # Check if Gunicorn is running for hw-4, and if not, start it as a daemon
           if ! pgrep -f "gunicorn -b 0.0.0.0:8080 main:app"; then
               $HW5_DIR/env/bin/gunicorn -b 0.0.0.0:8080 main:app --daemon
-          fi
+          
+  dependsOn:
+  - my-service-account
+  - gcs-bucket         
 
