@@ -1,0 +1,13 @@
+resources:
+- name: my-pubsub-topic
+  type: pubsub.v1.topic
+  properties:
+    topic: my-pubsub-topic
+
+- name: pubsub-subscription
+  type: pubsub.v1.subscription
+  properties:
+    subscription: YOUR_SUBSCRIPTION_NAME
+    topic: $(ref.my-pubsub-topic.name)
+   
+ 

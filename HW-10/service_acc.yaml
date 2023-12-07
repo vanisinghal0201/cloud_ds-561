@@ -1,0 +1,7 @@
+resources:
+- name: my-service-account
+  type: iam.v1.serviceAccount
+  properties:
+    accountId: ds561-service-account
+    displayName: My Service Account
+
