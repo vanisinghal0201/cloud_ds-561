@@ -1,27 +1,34 @@
 resources:
+- name: ds-561-gcs-bucket
+  type: storage.v1.bucket
+  properties:
+    location: us-central1
+
+- name: my-service-account
+  type: iam.v1.serviceAccount
+  properties:
+    accountId: ds561-service-account
+    displayName: My Service Account
+
+
 - name: my-vm-web-server
   type: compute.v1.instance
   properties:
     zone: us-central1-a
-    machineType: zones/us-central1-a/machineTypes/e2-micro-1
+    machineType: zones/us-central1-a/machineTypes/e2-micro
     disks:
     - deviceName: boot
       type: PERSISTENT
       boot: true
       autoDelete: true
       initializeParams:
-        sourceImage: projects/debian-cloud/global/images/family/debian-9
+        sourceImage: projects/debian-cloud/global/images/family/debian-10
     networkInterfaces:
     - network: global/networks/default
       accessConfigs:
       - name: External NAT
         type: ONE_TO_ONE_NAT
     metadata:
-      dependsOn:
-      - my-service-account
-      - ds-561-gcs-bucket
-      - my-cloud-sql-instance
-      - my-pubsub-topic
       items:
       - key: files-bucket
         value: $(ref.ds-561-gcs-bucket.name)
@@ -58,7 +65,7 @@ resources:
           gsutil mkdir gs://ds-561-gcs-bucket/files 
 
           # Upload generated files to GCS bucket
-          gsutil cp *.html gs://ds-561-gcs-bucket/files 
+          gsutil cp files/*.html gs://ds-561-gcs-bucket/files 
 
           # Configure Nginx for the Flask app
           NGINX_CONF="/etc/nginx/sites-available/flask_app"
@@ -92,8 +99,10 @@ resources:
           # Check if Gunicorn is running for hw-4, and if not, start it as a daemon
           if ! pgrep -f "gunicorn -b 0.0.0.0:8080 main:app"; then
               $HW5_DIR/env/bin/gunicorn -b 0.0.0.0:8080 main:app --daemon
+
+    dependsOn:
+    - ds-561-gcs-bucket
+    - my-service-account
           
-  dependsOn:
-  - my-service-account
-  - gcs-bucket         
+        
 

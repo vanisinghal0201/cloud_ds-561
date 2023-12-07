@@ -38,7 +38,7 @@ def add_link(f, lnk):
   f.write(text)
 
 def generate_file(idx, max_refs, num_files):
-  fname = str(idx) + ".html"
+  fname = "files/" + str(idx) + ".html"
   with open(fname, 'w', encoding="utf-8") as f:
     # how many references in this file
     add_headers(f)
