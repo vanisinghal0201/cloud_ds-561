@@ -7,7 +7,7 @@ resources:
 - name: pubsub-subscription
   type: pubsub.v1.subscription
   properties:
-    subscription: YOUR_SUBSCRIPTION_NAME
+    subscription: pubsub-subscription
     topic: $(ref.my-pubsub-topic.name)
    
  

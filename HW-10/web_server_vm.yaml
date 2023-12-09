@@ -1,16 +1,31 @@
 resources:
+#bucket
 - name: ds-561-gcs-bucket
   type: storage.v1.bucket
   properties:
     location: us-central1
 
+#service account
 - name: my-service-account
   type: iam.v1.serviceAccount
   properties:
     accountId: ds561-service-account
     displayName: My Service Account
 
+#sql instance
+- name: my-cloud-sql-instance
+  type: sqladmin.v1beta4.instance
+  properties:
+    backendType: SECOND_GEN
+    instanceType: CLOUD_SQL_INSTANCE
+    region: us-central1
+    databaseVersion: MYSQL_5_7
+    settings:
+      tier: db-f1-micro
+    dependsOn:
+    - my-service-account    
 
+#VM web server
 - name: my-vm-web-server
   type: compute.v1.instance
   properties:
@@ -28,12 +43,25 @@ resources:
       accessConfigs:
       - name: External NAT
         type: ONE_TO_ONE_NAT
+    serviceAccounts:
+    - email: "966904513519-compute@developer.gserviceaccount.com"
+      scopes:
+      - "https://www.googleapis.com/auth/userinfo.email"
+      - "https://www.googleapis.com/auth/cloud-platform"
+      - "https://www.googleapis.com/auth/sqlservice.admin"      
+      - "https://www.googleapis.com/auth/pubsub"               
+      - "https://www.googleapis.com/auth/logging.write"
+  
+    tags:
+      items:
+      - http-server
+      - https-server    
     metadata:
       items:
+      - key: google-logging-enabled
+        value: "true"
       - key: files-bucket
         value: $(ref.ds-561-gcs-bucket.name)
-      - key: service-account-email
-        value: $(ref.my-service-account.email)
       - key: startup-script
         value: |
           #!/bin/bash
@@ -60,12 +88,14 @@ resources:
           # Change the working directory to HW-5
           cd $HW5_DIR
 
+          mkdir files
+
           python3 generate.py -n 10000 -m 250
 
           gsutil mkdir gs://ds-561-gcs-bucket/files 
 
           # Upload generated files to GCS bucket
-          gsutil cp files/*.html gs://ds-561-gcs-bucket/files 
+          gsutil cp -r files gs://ds-561-gcs-bucket/
 
           # Configure Nginx for the Flask app
           NGINX_CONF="/etc/nginx/sites-available/flask_app"
@@ -103,6 +133,29 @@ resources:
     dependsOn:
     - ds-561-gcs-bucket
     - my-service-account
+
+# Add firewall rules for HTTP and HTTPS
+- name: allow-http
+  type: compute.v1.firewall
+  properties:
+    network: global/networks/default
+    sourceRanges: ["0.0.0.0/0"]
+    allowed:
+      - IPProtocol: TCP
+        ports: ["80"]
+
+- name: allow-https
+  type: compute.v1.firewall
+  properties:
+    network: global/networks/default
+    sourceRanges: ["0.0.0.0/0"]
+    allowed:
+      - IPProtocol: TCP
+        ports: ["443"]
+
+
+
+
           
         
 

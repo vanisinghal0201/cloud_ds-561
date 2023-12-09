@@ -1,4 +1,3 @@
-#!env python3
 import http.client
 from urllib.parse import urljoin
 import argparse
@@ -8,6 +7,17 @@ import platform
 import os
 import ssl
 from datetime import date
+import time
+
+from collections import defaultdict
+from datetime import datetime
+
+# Initialize a dictionary to count responses from each zone
+zone_count = defaultdict(int)
+
+# Variables for tracking connection errors and recovery
+error_start_time = None
+error_end_time = None
 
 
 list_of_countries = [ 'Afghanistan', 'Albania', 'Algeria', 'Andorra',
@@ -169,7 +179,6 @@ def make_request(domain, port, country, ip, filename, use_ssl, ssl_context, foll
                 error_end_time = time.time()
                 downtime_msg = f"Connection restored after {error_end_time - error_start_time} seconds"
                 print(downtime_msg)
-                append_to_log_file(downtime_msg)
                 error_start_time = None
 
 
@@ -190,6 +199,10 @@ def make_request(domain, port, country, ip, filename, use_ssl, ssl_context, foll
                  
         
 def main():
+    
+    global error_start_time, error_end_time, zone_count
+    
+    
     ssl_context = fix_certs()
     parser = argparse.ArgumentParser()
     parser.add_argument("-d", "--domain", help="Domain to make requests to", type=str, default="www.python.org")

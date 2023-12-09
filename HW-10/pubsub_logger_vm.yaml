@@ -1,21 +1,63 @@
 resources:
-- name: my-listener-instance
+- name: my-pubsub-instance
   type: compute.v1.instance
   properties:
     zone: us-central1-a
-    machineType: zones/us-central1-a/machineTypes/n1-standard-1
+    machineType: zones/us-central1-a/machineTypes/e2-micro
     disks:
     - deviceName: boot
       type: PERSISTENT
       boot: true
       autoDelete: true
       initializeParams:
-        sourceImage: projects/ubuntu-os-cloud/global/images/family/ubuntu-2004-lts
+        sourceImage: projects/debian-cloud/global/images/family/debian-10
     networkInterfaces:
     - network: global/networks/default
+      accessConfigs:
+      - name: External NAT
+        type: ONE_TO_ONE_NAT
+    serviceAccounts:
+    - email: "966904513519-compute@developer.gserviceaccount.com"
+      scopes:
+      - "https://www.googleapis.com/auth/userinfo.email"
+      - "https://www.googleapis.com/auth/cloud-platform"
+      - "https://www.googleapis.com/auth/sqlservice.admin"      
+      - "https://www.googleapis.com/auth/pubsub"               
+      - "https://www.googleapis.com/auth/logging.write"
+    tags:
+      items:
+      - http-server
+      - https-server
     metadata:
       items:
+      - key: google-logging-enabled
+        value: "true"
       - key: startup-script
         value: |
           #! /bin/bash
-          # Your startup script goes here
+          apt-get update
+          apt-get install -yq git python3-pip python3-venv
+
+          # Set the directory paths for the repository and HW-4
+          REPO_DIR="/opt/app2"
+          HW5_DIR="$REPO_DIR/HW-10"
+
+          # Clone the source code repository if it doesn't exist
+          if [ ! -d "$REPO_DIR" ]; then
+              git clone https://github.com/vanisinghal0201/cloud_ds-561.git $REPO_DIR
+          fi
+
+          # Create a Python virtual environment for hw-4
+          if [ ! -d "$HW5_DIR/env" ]; then
+              python3 -m venv $HW5_DIR/env
+              $HW5_DIR/env/bin/pip install --upgrade pip
+              $HW5_DIR/env/bin/pip install -r $HW5_DIR/requirements.txt
+          fi
+
+          # Activate the Python environment for HW-4
+          if [ -d "$HW5_DIR/env" ]; then
+              source $HW5_DIR/env/bin/activate
+          fi
+
+          # Start the country logger app in the background
+          $HW5_DIR/env/bin/python3 $HW5_DIR/logger-app-2.py &
